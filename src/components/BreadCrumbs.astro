@@ -6,31 +6,28 @@ interface BreadCrumb {
     path: string
 }
 
-function resolveBreadCrumbs(path: string) : BreadCrumb[] | null | 'home' {
+function resolveBreadCrumbs(path: string) : BreadCrumb[] | 'post' | 'home' {
 
     const pathArray = path.split('/').filter( pathSegment => !!pathSegment )
     
-    const breadCrumbs: (BreadCrumb | null | 'home')[] = pathArray
+    const breadCrumbs: (BreadCrumb | 'post' | 'home')[] = pathArray
         .map( (pathSegment, i) => {
 
-            if( pathSegment.match(/^\d/) && pathSegment.length > 7 ) return null
+            if( pathSegment.match(/^\d/) && pathSegment.length > 7 ) return 'post'
             if( pathSegment.match(/^\d/) && pathSegment.length <=6 ) return 'home'
 
             let title = ( pathSegment.slice(0,1).toUpperCase() + pathSegment.slice(1) )
                 .replace('Date', 'Archive')
                 .replace('Tag', 'Topic')
 
-            // let path: string = ''
             let path: string = pathArray
-                .map( (_, i2) =>{
-                return i2 <= i ? '/' + pathArray[i2] : ''
-            } ).join('')
-                
+                .map( (_, j) => j <= i ? '/' + pathArray[j] : '' )
+                .join('')
 
             return { title, path }
-    })
+        })
 
-    if( breadCrumbs.includes(null) ) return null
+    if( breadCrumbs.includes('post') ) return 'post'
     if( breadCrumbs.includes('home') ) return 'home'
 
     return breadCrumbs as BreadCrumb[]
@@ -41,16 +38,16 @@ const breadCrumbs = resolveBreadCrumbs(Astro.url.pathname)
 
 <Wrapper padding="inline" class="pt-4 text-sm opacity-65">
 
-    { breadCrumbs === null && (
+    { breadCrumbs === 'post' && (
         <a href="/blog/" class="flex items-center gap-2">
             <svg width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11 4.5C11 4.61934 10.9517 4.73379 10.8658 4.81818C10.7798 4.90257 10.6632 4.94997 10.5417 4.94997L1.56494 4.94997L4.9078 8.23142C4.95039 8.27322 4.98416 8.32286 5.00721 8.37748C5.03026 8.4321 5.04212 8.49065 5.04212 8.54977C5.04212 8.6089 5.03026 8.66744 5.00721 8.72207C4.98416 8.77669 4.95039 8.82632 4.9078 8.86813C4.86522 8.90994 4.81467 8.9431 4.75903 8.96573C4.7034 8.98835 4.64376 9 4.58354 9C4.52332 9 4.46369 8.98835 4.40806 8.96573C4.35242 8.9431 4.30187 8.90994 4.25928 8.86813L0.134419 4.81836C0.0918058 4.77657 0.0580008 4.72694 0.0349362 4.67231C0.0118717 4.61769 0 4.55913 0 4.5C0 4.44087 0.0118717 4.38231 0.0349362 4.32769C0.0580008 4.27306 0.0918058 4.22343 0.134419 4.18164L4.25928 0.131868C4.34528 0.0474343 4.46192 -8.89653e-10 4.58354 0C4.70516 8.89652e-10 4.82181 0.0474343 4.9078 0.131868C4.9938 0.216301 5.04212 0.330818 5.04212 0.450225C5.04212 0.569632 4.9938 0.684149 4.9078 0.768582L1.56494 4.05002L10.5417 4.05002C10.6632 4.05002 10.7798 4.09743 10.8658 4.18182C10.9517 4.26621 11 4.38066 11 4.5Z" fill="black"/>
             </svg>
             Back to blog home
         </a>
-    ) }
+    )}
 
-    { breadCrumbs !== null && breadCrumbs !== 'home' && (
+    { breadCrumbs !== 'post' && breadCrumbs !== 'home' && (
         breadCrumbs.map( crumb => (
             <a href={crumb.path} class="after:content-['>'] after:inline-block after:px-2 last:after:content-none">
                 {crumb.title}

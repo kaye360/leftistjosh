@@ -21,7 +21,7 @@ export async function getPosts() : Promise<Post[]> {
         *[_type == "post"] {
             'imageURL': image.asset->url,
             ...
-        } | order(_createdAt asc)
+        } | order(date desc)
     `)
     
     const posts = query.map( (post: any) => ({
