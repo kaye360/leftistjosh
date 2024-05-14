@@ -21,7 +21,7 @@ export async function getPosts() : Promise<Post[]> {
         *[_type == "post"] {
             'imageURL': image.asset->url,
             ...
-        } | order(date desc)
+        } | order(date desc )
     `)
     
     const posts = query.map( (post: any) => ({
@@ -39,6 +39,9 @@ export async function getPosts() : Promise<Post[]> {
 
 
 function getSlug({title, date} : {[key:string]: string}) : string {
-    const slug = (date + '-' + title.trim().replaceAll(' ', '-')).toLowerCase()
+    const slug = (date + '-' + title.trim().replaceAll(' ', '-'))
+        .toLowerCase()
+        .replaceAll('?', '')
+        .replaceAll('/', '')
     return slug
 }
