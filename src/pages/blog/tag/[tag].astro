@@ -1,0 +1,40 @@
+---
+import { getPosts, type Post as IPost } from "../../../../api/post";
+import { getTags } from "../../../../api/tag";
+import H1 from "../../../components/H1.astro";
+import Wrapper from "../../../components/Wrapper.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+import Post from "../../../sections/Post.astro";
+import PostList from "../../../sections/PostList.astro";
+
+interface Props {
+    posts : IPost[]
+}
+
+export async function getStaticPaths() : Promise<any> {
+
+    const postList = await getPosts()
+    const tagList = await getTags()
+    
+    return tagList.map( (tag) => {
+        const filteredPostList = postList.filter( post => post && post.tags.map( postTag => postTag.hyphen).includes( tag.hyphen ) )
+        
+        return {
+            params: { tag: tag.hyphen },
+            props : { posts: filteredPostList }
+        }
+    } )
+}
+
+const { tag } : {[key:string]: string} = Astro.params
+const { posts } = Astro.props
+---
+
+<BlogLayout
+    pageHeading={'Posts tagged #' + tag}
+>
+
+    <PostList {posts} />
+
+</BlogLayout>

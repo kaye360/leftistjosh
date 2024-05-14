@@ -1,0 +1,12 @@
+---
+import type { Post as IPost } from "../../api/post"
+import Post from "./Post.astro"
+
+interface Props {
+    posts : IPost[]
+}
+const { posts } = Astro.props
+---
+<div class="grid gap-12">
+    { posts.map( (post) => <Post {...post} /> ) }
+</div>

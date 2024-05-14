@@ -1,0 +1,29 @@
+---
+import { type Page, type PaginateFunction } from 'astro';
+import { getPosts } from '../../../api/post';
+import PostList from '../../sections/PostList.astro';
+import Pagination from '../../components/Pagination.astro';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+interface Props {
+	page : Page,
+}
+
+export async function getStaticPaths({paginate} : {paginate : PaginateFunction}) {
+	const pages = await getPosts()
+	return paginate(pages, {pageSize: 5})
+}
+
+const { page } = Astro.props
+---
+
+<BlogLayout
+	pageHeading={'Page ' + page.currentPage + '/' + page.lastPage}
+>
+
+	<PostList posts={page.data} />
+
+	<Pagination {page} />
+
+</BlogLayout>
+		

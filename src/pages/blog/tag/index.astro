@@ -1,0 +1,25 @@
+---
+import { getTags } from "../../../../api/tag";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+
+const tags = await getTags()
+---
+
+<BlogLayout
+    pageHeading="Tags"
+>
+
+    <div class="flex gap-4 flex-wrap">
+
+        { tags.map( tag => (
+            <a 
+                href={`/blog/tag/${tag.hyphen}`}
+                class="block rounded border border-sky-200 px-3 py-1"
+            >
+                #{tag.space}
+            </a>
+        ))}
+        
+    </div>
+
+</BlogLayout>

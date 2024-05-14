@@ -1,0 +1,56 @@
+---
+import { getPosts, type Post } from "../../../api/post";
+import H1 from "../../components/H1.astro";
+import Image from '../../components/Image.astro'
+import PortableTextBlock from "../../components/PortableTextBlock.astro";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+
+interface Props extends Post { }
+
+export async function getStaticPaths() {
+    const blogPostList = await getPosts()
+    return blogPostList.map( (post : any) => {
+        if( post === null) throw Error('blogPostList is null')
+        return {
+            params: {slug : post.slug},
+            props : post
+        }
+    } )
+}
+
+const { post, image, title, date, tags } = Astro.props
+---
+
+<BlogLayout
+    pageHeading={title}
+>
+
+    <span>{date.longPhrase}</span>
+
+    { tags && (
+        <div class="flex gap-x-4 flex-wrap  mb-4">
+            { tags.map( tag => (
+                <a href={`/blog/tag/${tag.hyphen}`} class="hover:underline text-primary-400">
+                    #{tag.space}
+                </a>
+            ))}
+        </div>
+    )}
+
+    { image && (
+        <Image 
+            src={image.url}
+            width={image.width}
+            height={image.height}
+            alt={title}
+            class="w-full mb-4 rounded-md"
+        />
+    )}
+
+    <p class="font-semibold mb-4">
+        <!-- {date.longPhrase} -->
+    </p>
+
+    <PortableTextBlock value={post} />
+
+</BlogLayout>

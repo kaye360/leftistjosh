@@ -1,0 +1,10 @@
+---
+import Text from "../components/Text.astro";
+
+const { class: className='' } = Astro.props
+---
+<article class={className}>
+    <Text>
+        <slot />            
+    </Text>
+</article>

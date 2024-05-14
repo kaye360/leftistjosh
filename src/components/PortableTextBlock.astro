@@ -1,0 +1,28 @@
+---
+import { PortableText } from "astro-portabletext";
+import Image from "./SanityImage.astro";
+import Text from "./Text.astro";
+import H2 from "./H2.astro";
+import H3 from "./H3.astro";
+import Ul from "./Ul.astro";
+
+const { value, class: className = "" } = Astro.props;
+
+const components = {
+	type: {
+		image: Image
+	},
+	block: {
+		h2 : H2,
+		h3 : H3,
+		// normal : Paragraph
+	},
+	list : {
+		bullet : Ul
+	}
+};
+---
+
+<Text class:list={["w-full", className]}>
+	<PortableText value={value} components={components} />
+</Text>

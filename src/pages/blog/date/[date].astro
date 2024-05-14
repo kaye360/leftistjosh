@@ -1,0 +1,45 @@
+---
+import { getDates, type BlogPostDate } from '../../../../api/date'
+import { getPosts, type Post as IPost } from '../../../../api/post'
+import BlogLayout from '../../../layouts/BlogLayout.astro'
+import Post from '../../../sections/Post.astro'
+import PostList from '../../../sections/PostList.astro'
+
+
+interface Props {
+    posts: IPost[],
+    blogPostDate : BlogPostDate
+}
+
+export async function getStaticPaths() : Promise<any> {
+
+    const blogPostList = await getPosts()
+    const dateList = await getDates()
+
+    return dateList.map( date => {
+        const month = date.phrase.slice(0,4)
+        const year  = date.phrase.slice(-4)
+        const filteredPostList = blogPostList.filter( post => post && post.date.phrase.includes(month) && post.date.phrase.includes(year) )
+        return {
+            params: { date: date.numeric },
+            props : { 
+                posts: filteredPostList, 
+                blogPostDate : date  
+            }
+        }
+    } )
+}
+
+const { date } : { date: string } = Astro.params
+const { posts, blogPostDate } = Astro.props
+
+console.log(blogPostDate)
+---
+
+<BlogLayout
+    pageHeading={'Posts in ' + blogPostDate.phrase}
+>
+
+    <PostList {posts} />
+    
+</BlogLayout>

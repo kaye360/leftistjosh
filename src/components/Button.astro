@@ -1,0 +1,71 @@
+---
+interface Base {
+    variant?: "fill" | "outline" | "ghost";
+    class?: string;
+    id?: string;
+
+    /**
+     *
+     * @description This component can render as either a button or an anchor tag.
+     *
+     * @prop variant : 'fill', 'outline',
+     * @prop icon? : string
+     * @prop class? : string
+     * @prop id? : string
+     * @prop href? : string
+     * @prop target? : '_blank'
+     * @prop download? : boolean
+     * @prop type? : 'submit' | 'reset' | 'button'
+     * @prop disabled? : boolean
+     * @prop name? : string
+     * @prop value? : string
+     * @prop slot
+     */
+    props?: true;
+}
+
+interface HtmlATag extends Base {
+    href: string;
+    target?: "_blank";
+    download?: boolean;
+    type?: never;
+    disabled?: never;
+    name?: never;
+    value?: never;
+}
+
+interface HtmlButtonTag extends Base {
+    href?: never;
+    target?: never;
+    download?: never;
+    type?: "submit" | "reset" | "button";
+    disabled?: boolean;
+    name?: string;
+    value?: string;
+}
+
+type Props = HtmlATag | HtmlButtonTag;
+
+// Props that aren't attributes
+const { 
+    class: className, 
+    variant = "fill", 
+    ...props 
+} = Astro.props;
+
+const Element = props.href ? "a" : "button";
+---
+
+<Element
+    class:list={[
+        'inline-block px-4 py-2 border border-transparent rounded-lg font-semibold transition-colors',
+        variant === 'fill' ? 'border-sky-800 bg-sky-800 text-white hover:bg-sky-950' : '',
+        variant === 'outline' ? 'border-sky-800 text-sky-800 hover:bg-sky-950 hover:text-white' : '',
+        variant === 'ghost' ? 'hover:border-sky-800 hover:text-sky-950' : '',
+        className,
+    ]}
+    {...props}
+>
+    <slot />
+
+</Element>

@@ -1,0 +1,24 @@
+---
+import { getDates } from "../../../../api/date"
+import BlogLayout from "../../../layouts/BlogLayout.astro"
+
+
+const dates = await getDates()
+console.log(dates)
+---
+
+<BlogLayout
+    pageHeading="Archive"
+>
+    <ul class="list-disc pl-6">
+        {
+            dates.map( (date) => (
+                <li>
+                    <a href={'/blog/date/' + date.numeric} class="hover:underline">
+                        {date.phrase}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</BlogLayout>

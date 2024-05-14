@@ -1,0 +1,42 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {
+    /**
+     * @prop width: 'wide' | 'default' | 'slim'. Default is width of 72rem, 1152px; wide = 100%; slim = 70ch
+     * @prop padding 'inline' | 'block' | 'inline-block'
+     * @prop class
+     * @prop slot
+     */
+    props? : true
+    width? : 'wide' | 'default' | 'slim',
+    padding? : 'inline' | 'block' | 'inline-block'
+    class? : string,
+}
+
+const { 
+    width             = 'default',
+    padding           = 'inline-block',
+    class : className = '',
+    ...rest
+} = Astro.props
+---
+
+<div 
+    class:list={[
+        'mx-auto w-full relative',
+        `${width === 'default' ? 'max-w-6xl'    : ''}`,
+        `${width === 'slim'    ? 'max-w-[70ch]' : ''}`,
+        `${padding === 'inline'       ? 'px-default-x'            : ''}`,
+        `${padding === 'block'        ? 'py-default-y'            : ''}`,
+        `${padding === 'inline-block' ? 'px-default-x py-default-y' : ''}`,
+        className
+    ]} 
+    {...rest}
+>
+
+    <slot />
+
+</div>
+
+<div class="px-default py-default" />

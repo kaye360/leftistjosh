@@ -1,0 +1,30 @@
+---
+import Wrapper from "../components/Wrapper.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+
+	<meta http-equiv="refresh" content="0; url=/blog/1" slot="meta" />
+
+	<Wrapper>
+		<a href="/blog">
+			View Blog Posts
+		</a>
+	</Wrapper>
+
+</BaseLayout>
+
+<style is:global>
+
+	@keyframes fade-in {
+		from { opacity: 0; }
+		90%  { opacity: 0; }
+		to   { opacity: 1; }
+	}
+	
+	body {
+		animation: fade-in 3s;
+	}
+	
+</style>

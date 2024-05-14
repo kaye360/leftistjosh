@@ -1,0 +1,74 @@
+---
+import { getDates } from "../../api/date";
+import { getTags } from "../../api/tag";
+import BreadCrumbs from "../components/BreadCrumbs.astro";
+import H2 from "../components/H2.astro";
+import PageHeading from "../components/PageHeading.astro";
+import Wrapper from "../components/Wrapper.astro";
+import BaseLayout from "./BaseLayout.astro";
+
+const tags  = await getTags()
+const dates = await getDates()
+
+interface Props {
+    pageHeading : string
+}
+
+const { pageHeading } = Astro.props
+---
+
+<BaseLayout
+    title={`Blog Posts`}
+    description=""
+>
+
+	<BreadCrumbs />
+	
+    <PageHeading>
+        { pageHeading }
+    </PageHeading>
+
+    <section>
+        <Wrapper padding="inline" class="relative grid md:grid-cols-[1fr_250px] gap-12">
+
+            <div>
+                <slot />
+            </div>
+
+			<div class="relative">
+				<div class="sticky top-12 border-l border-sky-700 pl-4 ">
+					<H2>
+						<a href="/blog/tag">
+							More Topics
+						</a>
+					</H2>
+					<div class="flex flex-wrap gap-x-4 gap-y-2 mb-8 mt-2">
+						{ tags.map( tag => (
+							<a href={`/blog/tag/${tag.hyphen}`}>
+								#{tag.space}
+							</a>
+						))}
+					</div>
+					<H2>
+						<a href="/blog/date">
+							Archive
+						</a>
+					</H2>
+					<ul class="mt-2">
+						{
+							dates.map( (date) => (
+								<li>
+									<a href={'/blog/date/' + date.numeric} class="hover:underline">
+										{date.phrase}
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+
+			</div>
+
+		</Wrapper>
+	</section>
+</BaseLayout>
