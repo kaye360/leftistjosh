@@ -39,16 +39,11 @@ export async function getPosts() : Promise<Post[]> {
 
 
 function getSlug({title, date} : {[key:string]: string}) : string {
-    const slug = (date + '-' + title.trim().replaceAll(' ', '-'))
+    const slug = (date + '-' + title.trim().replaceAll('-', '').replaceAll(' ', '-'))
         .toLowerCase()
-        .replaceAll('?', '')
         .replaceAll('/', '-')
-        .replaceAll(':', '')
-        .replaceAll('"', '')
-        .replaceAll('(', '')
-        .replaceAll(')', '')
-        .replaceAll(',' , '')
-        .replaceAll("'", '')
+        .replaceAll(/([^a-z0-9\-]+)/g, '')
+        .replaceAll('--', '-')
         // remove [is, and, for, the tom]
     return slug
 }
