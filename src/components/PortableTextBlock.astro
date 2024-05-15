@@ -5,6 +5,7 @@ import Text from "./Text.astro";
 import H2 from "./H2.astro";
 import H3 from "./H3.astro";
 import Ul from "./Ul.astro";
+import BlockQuote from "./BlockQuote.astro";
 
 const { value, class: className = "" } = Astro.props;
 
@@ -15,6 +16,7 @@ const components = {
 	block: {
 		h2 : H2,
 		h3 : H3,
+		blockquote : BlockQuote
 		// normal : Paragraph
 	},
 	list : {
@@ -23,6 +25,6 @@ const components = {
 };
 ---
 
-<Text class:list={["w-full", className]}>
+<Text class:list={["w-full [&_a]:text-sky-600 [&_a]:underline [&_a:hover]:text-sky-900", className]}>
 	<PortableText value={value} components={components} />
 </Text>

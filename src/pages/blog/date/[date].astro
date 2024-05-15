@@ -2,9 +2,7 @@
 import { getDates, type BlogPostDate } from '../../../../api/date'
 import { getPosts, type Post as IPost } from '../../../../api/post'
 import BlogLayout from '../../../layouts/BlogLayout.astro'
-import Post from '../../../sections/Post.astro'
 import PostList from '../../../sections/PostList.astro'
-
 
 interface Props {
     posts: IPost[],
@@ -30,10 +28,7 @@ export async function getStaticPaths() : Promise<any> {
     } )
 }
 
-const { date } : { date: string } = Astro.params
 const { posts, blogPostDate } = Astro.props
-
-console.log(blogPostDate)
 ---
 
 <BlogLayout

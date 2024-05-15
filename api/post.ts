@@ -42,6 +42,13 @@ function getSlug({title, date} : {[key:string]: string}) : string {
     const slug = (date + '-' + title.trim().replaceAll(' ', '-'))
         .toLowerCase()
         .replaceAll('?', '')
-        .replaceAll('/', '')
+        .replaceAll('/', '-')
+        .replaceAll(':', '')
+        .replaceAll('"', '')
+        .replaceAll('(', '')
+        .replaceAll(')', '')
+        .replaceAll(',' , '')
+        .replaceAll("'", '')
+        // remove [is, and, for, the tom]
     return slug
 }
