@@ -44,6 +44,5 @@ function getSlug({title, date} : {[key:string]: string}) : string {
         .replaceAll('/', '-')
         .replaceAll(/([^a-z0-9\-]+)/g, '')
         .replaceAll('--', '-')
-        // remove [is, and, for, the tom]
     return slug
 }

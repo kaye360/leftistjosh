@@ -14,7 +14,7 @@ const { slug, title, date, image, preview } = Astro.props
     <Article class={ !image ? 'col-span-2' : ''}>
 
         <H2>
-            <a href={`/blog/${slug}`}>
+            <a href={`/blog/${slug}`} class="hover:underline">
                 {title}
             </a>
         </H2>

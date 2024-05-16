@@ -1,16 +1,40 @@
 ---
+import Image from "astro/components/Image.astro"
 import Wrapper from "../components/Wrapper.astro"
 ---
 
-<header class="py-6 border-b border-sky-200">
+<header 
+    class="py-6 border-b border-sky-200"
+    id="top"
+>
 
     <Wrapper padding="inline">
-        <a 
-            href="/"
-            class="font-bold text-sky-900 hover:underline"
-        >
-            LeftistJosh
-        </a>
+        
+        <nav class="flex items-center gap-4">
+            <a 
+                href="/"
+                class="flex items-center gap-2 mr-auto font-semibold text-xl text-sky-900 hover:underline w-fit"
+            >
+                <Image 
+                    src="/logo.webp" 
+                    width={48}
+                    height={48}
+                    alt=""
+                    role="presentation"
+                    class="rounded-full border border-sky-950 shadow-xl"
+                />
+                LeftistJosh
+            </a>
+
+            <a href="/blog/tag">
+                Topics
+            </a>
+
+            <a href="/blog/date">
+                Archive
+            </a>
+
+        </nav>
     </Wrapper>
 
 </header>
