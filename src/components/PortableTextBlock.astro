@@ -6,17 +6,21 @@ import H2 from "./H2.astro";
 import H3 from "./H3.astro";
 import Ul from "./Ul.astro";
 import BlockQuote from "./BlockQuote.astro";
+import Banner from "./Banner.astro";
+import TitleDesc from "./TitleDesc.astro";
 
 const { value, class: className = "" } = Astro.props;
 
 const components = {
 	type: {
-		image: Image
+		image: Image,
+		'titleDesc' : TitleDesc
 	},
 	block: {
 		h2 : H2,
 		h3 : H3,
-		blockquote : BlockQuote
+		blockquote : BlockQuote,
+		'div-banner' : Banner
 		// normal : Paragraph
 	},
 	list : {

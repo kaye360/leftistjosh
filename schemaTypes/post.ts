@@ -56,9 +56,25 @@ export const post = defineType({
 						{ title: 'Normal', value: 'normal' },
 						{ title: 'Heading', value: 'h2' },
 						{ title: 'SubhHeading', value: 'h3' },
-						{ title: 'Quote', value: 'blockquote' }
+						{ title: 'Quote', value: 'blockquote' },
+						// { title : 'Banner', value : 'banner',  },
 					]
 				},
+				// { 
+				// 	type : 'object',
+				// 	title : 'Title Desc', 
+				// 	name : 'titleDesc',
+				// 	preview: {
+				// 		select : {
+				// 			title : 'title',
+				// 			subtitle : 'description',
+				// 		}
+				// 	},
+				// 	fields : [
+				// 		{name : 'title', type: 'string' },
+				// 		{name : 'description', type: 'text' }
+				// 	]
+				// },
 				{ type: 'image' }
 			],
 			validation: rule => rule.required(),
