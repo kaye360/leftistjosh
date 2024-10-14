@@ -25,9 +25,6 @@ const { slug, title, date, image, preview } = Astro.props
 
         <p>
             { preview.slice(0,100) }
-            <span class="md:hidden" aria-hidden="true">
-                ...
-            </span>
             <span class="hidden md:inline">
                 { preview.slice(100) }
             </span>
