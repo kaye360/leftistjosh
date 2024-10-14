@@ -35,26 +35,22 @@ const { pageHeading } = Astro.props
                 <slot />
             </div>
 
-			<div class="relative">
-				<div class="sticky top-12 p-4 bg-sky-100/60 rounded-lg">
-					<H2>
-						<a href="/blog/tag">
-							More Topics
-						</a>
-					</H2>
-					<div class="flex flex-wrap gap-x-3 gap-y-1 mb-6 mt-2">
+			<div>
+				<div class="relative border-l-4 border-b-4 border-sky-200/80 p-4">
+					<h2 class="text-xl font-semibold text-sky-900">
+						<a href="/blog/tag">More Topics</a>
+					</h2>
+					<div class="flex flex-wrap gap-x-3 gap-y-1 mb-6 mt-2 text-sm">
 						{ tags.map( tag => (
 							<a href={`/blog/tag/${tag.hyphen}`}>
 								#{tag.space}
 							</a>
 						))}
 					</div>
-					<H2>
-						<a href="/blog/date">
-							Archive
-						</a>
-					</H2>
-					<ul class="grid gap-2 mt-2">
+					<h2 class="text-xl font-semibold text-sky-900">
+						<a href="/blog/date">Archive</a>
+					</h2>
+					<ul class="grid gap-2 mt-2 text-sm">
 						{
 							dates.map( (date) => (
 								<li>
@@ -66,7 +62,6 @@ const { pageHeading } = Astro.props
 						}
 					</ul>
 				</div>
-
 			</div>
 
 		</Wrapper>

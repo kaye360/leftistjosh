@@ -24,12 +24,12 @@ const { post, image, title, date, tags } = Astro.props
     pageHeading={title}
 >
 
-    <span>{date.longPhrase}</span>
+    <span class="text-gray-500 text-sm">{date.longPhrase}</span>
 
     { tags && (
         <div class="flex gap-x-4 flex-wrap  mb-4">
             { tags.map( tag => (
-                <a href={`/blog/tag/${tag.hyphen}`} class="hover:underline text-primary-400">
+                <a href={`/blog/tag/${tag.hyphen}`} class="hover:underline text-gray-500 text-sm">
                     #{tag.space}
                 </a>
             ))}
@@ -47,7 +47,8 @@ const { post, image, title, date, tags } = Astro.props
     )}
 
 
-
-    <PortableTextBlock value={post} />
+    <main class="mt-8">
+        <PortableTextBlock value={post} />
+    </main>
 
 </BlogLayout>

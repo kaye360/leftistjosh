@@ -19,15 +19,15 @@ const { slug, title, date, image, preview } = Astro.props
             </a>
         </H2>
 
-        <span>
-            {date.longPhrase}
-        </span>
-
         <p>
             { preview.slice(0,100) }
             <span class="hidden md:inline">
                 { preview.slice(100) }
             </span>
+        </p>
+
+        <p class="text-sm">
+            {date.longPhrase}
         </p>
 
         <Button href={`/blog/${slug}`}>
