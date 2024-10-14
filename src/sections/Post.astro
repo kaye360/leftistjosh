@@ -9,7 +9,7 @@ interface Props extends Post {}
 const { slug, title, date, image, preview } = Astro.props
 ---
 
-<div class="grid grid-cols-[2fr_1.5fr] md:grid-cols-[2fr_1fr] gap-2">
+<div class="grid grid-cols-[2fr_1.5fr] md:grid-cols-[2fr_1fr] gap-2 border-b border-sky-200 pb-6">
 
     <Article class={ !image ? 'col-span-2' : ''}>
 
