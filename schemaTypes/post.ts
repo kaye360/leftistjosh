@@ -60,21 +60,6 @@ export const post = defineType({
 						// { title : 'Banner', value : 'banner',  },
 					]
 				},
-				// { 
-				// 	type : 'object',
-				// 	title : 'Title Desc', 
-				// 	name : 'titleDesc',
-				// 	preview: {
-				// 		select : {
-				// 			title : 'title',
-				// 			subtitle : 'description',
-				// 		}
-				// 	},
-				// 	fields : [
-				// 		{name : 'title', type: 'string' },
-				// 		{name : 'description', type: 'text' }
-				// 	]
-				// },
 				{ type: 'image' }
 			],
 			validation: rule => rule.required(),

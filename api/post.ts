@@ -13,6 +13,7 @@ export interface Post {
     preview  : string,
     slug     : string,
     image?   : ImageData | null,
+    updatedAt : string
 }
 
 export async function getPosts() : Promise<Post[]> {
@@ -31,7 +32,8 @@ export async function getPosts() : Promise<Post[]> {
         post    : post.post,
         preview : post.preview || '',
         tags    : createPostTagList(post.tags),
-        slug    : getSlug({title: post.title, date: post.date})
+        slug    : getSlug({title: post.title, date: post.date}),
+        updatedAt : new Date(post._updatedAt).toDateString()
     }))
 
     return posts

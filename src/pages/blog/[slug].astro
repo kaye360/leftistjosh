@@ -17,7 +17,7 @@ export async function getStaticPaths() {
     } )
 }
 
-const { post, image, title, date, tags } = Astro.props
+const { post, image, title, date, tags, updatedAt } = Astro.props
 ---
 
 <BlogLayout
@@ -50,5 +50,9 @@ const { post, image, title, date, tags } = Astro.props
     <main class="mt-8">
         <PortableTextBlock value={post} />
     </main>
+
+    <p class="mt-12 pt-4 border-t-8 border-double border-sky-100 italic ">
+        Last updated: {updatedAt}
+    </p>
 
 </BlogLayout>
