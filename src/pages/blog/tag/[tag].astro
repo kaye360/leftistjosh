@@ -29,6 +29,7 @@ const { posts } = Astro.props
 
 <BlogLayout
     pageHeading={'Posts tagged #' + tag}
+    type="static"
 >
 
     <PostList {posts} />

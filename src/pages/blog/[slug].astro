@@ -22,6 +22,7 @@ const { post, image, title, date, tags, updatedAt } = Astro.props
 
 <BlogLayout
     pageHeading={title}
+    type="post"
 >
 
     <span class="text-gray-500 text-sm">{date.longPhrase}</span>

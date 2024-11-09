@@ -1,0 +1,58 @@
+---
+---
+<div 
+    id="table-of-contents-wrapper"
+    class="p-4 mb-4 md:col-span-2 hidden bg-sky-100/40 rounded-lg"
+>
+
+    <h2 class="font-semibold mb-2">
+        Table of Contents
+    </h2>
+
+    <ol 
+        id="table-of-contents-ul"
+        class="grid gap-2 text-sm list-decimal list-inside"
+    />
+
+</div>
+
+<script>
+
+const tableOfContentsWrapper = document.querySelector('#table-of-contents-wrapper')
+
+const content = document.querySelector('#content-slot')
+const headings = content?.querySelectorAll('h2')
+
+// If more than one heading, show the Table of Contents
+if( headings && headings?.length > 1 ) {
+    tableOfContentsWrapper?.classList.remove('hidden')
+}
+
+headings?.forEach( heading => {
+    const id = generateIdFromTextContent(heading.textContent)
+    heading.setAttribute('id', id)
+    insertTableOfContentsListItem(heading.textContent, id)
+})
+
+function generateIdFromTextContent(heading : string|null) : string {
+    if( !heading ) return ''
+    return heading
+        .toLowerCase()
+        .trim()
+        .replaceAll(' ', '-')
+        .replace(/[^a-zA-Z0-9-]+/g, '')
+        .slice(0,30) || ''
+}
+
+function insertTableOfContentsListItem(heading: string|null, id: string) : void {
+    const tableOfContentsUl = document.querySelector('#table-of-contents-ul')
+    tableOfContentsUl?.insertAdjacentHTML('beforeend', `
+        <li>
+            <a href="#${id}" class="hover:underline">
+                ${heading}
+            </a>
+        </li>
+    `)
+}
+
+</script>

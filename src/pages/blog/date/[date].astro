@@ -33,6 +33,7 @@ const { posts, blogPostDate } = Astro.props
 
 <BlogLayout
     pageHeading={'Posts in ' + blogPostDate.phrase}
+    type="static"
 >
 
     <PostList {posts} />
