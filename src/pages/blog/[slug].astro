@@ -1,8 +1,11 @@
 ---
+import type { TransitionAnimation, TransitionAnimationPair, TransitionDirectionalAnimations } from "astro";
 import { getPosts, type Post } from "../../../api/post";
 import Image from '../../components/Image.astro'
 import PortableTextBlock from "../../components/PortableTextBlock.astro";
 import BlogLayout from "../../layouts/BlogLayout.astro";
+import TableOfContents from "../../components/TableOfContents.astro";
+import PageHeading from "../../components/PageHeading.astro";
 
 interface Props extends Post { }
 
@@ -18,6 +21,20 @@ export async function getStaticPaths() {
 }
 
 const { post, image, title, date, tags, updatedAt } = Astro.props
+
+const slideUp : TransitionAnimation = {
+    name : 'slide-up'
+}
+
+const slideUpPair : TransitionAnimationPair = {
+    old : slideUp,
+    new : slideUp,
+}
+
+const slideUpTransition : TransitionDirectionalAnimations = {
+    forwards : slideUpPair,
+    backwards : slideUpPair
+}
 ---
 
 <BlogLayout
@@ -25,35 +42,43 @@ const { post, image, title, date, tags, updatedAt } = Astro.props
     type="post"
 >
 
-    <span class="text-gray-500 text-sm">{date.longPhrase}</span>
+    <div transition:animate={slideUpTransition}>
 
-    { tags && (
-        <div class="flex gap-x-4 flex-wrap  mb-4">
-            { tags.map( tag => (
-                <a href={`/blog/tag/${tag.hyphen}`} class="hover:underline text-gray-500 text-sm">
-                    #{tag.space}
-                </a>
-            ))}
-        </div>
-    )}
+        <PageHeading padding="block">
+            {title}
+        </PageHeading>
 
-    { image && (
-        <Image 
-            src={image.url}
-            width={image.width}
-            height={image.height}
-            alt={title}
-            class="w-full max-h-[50vh] object-cover mb-4 rounded-md"
-        />
-    )}
+        <span class="text-gray-500 text-sm">{date.longPhrase}</span>
 
+        { tags && (
+            <div class="flex gap-x-4 flex-wrap  mb-4">
+                { tags.map( tag => (
+                    <a href={`/blog/tag/${tag.hyphen}`} class="hover:underline text-gray-500 text-sm">
+                        #{tag.space}
+                    </a>
+                ))}
+            </div>
+        )}
 
-    <main class="mt-8">
-        <PortableTextBlock value={post} />
-    </main>
+        { image && (
+            <Image 
+                src={image.url}
+                width={image.width}
+                height={image.height}
+                alt={title}
+                class="w-full max-h-[50vh] object-cover mb-4 rounded-md"
+            />
+        )}
 
-    <p class="mt-12 pt-4 border-t-8 border-double border-sky-100 italic ">
-        Last updated: {updatedAt}
-    </p>
+        <TableOfContents />
+
+        <main class="mt-8" id="main-content">
+            <PortableTextBlock value={post} />
+        </main>
+
+        <p class="mt-12 pt-4 border-t-8 border-double border-sky-100 italic ">
+            Last updated: {updatedAt}
+        </p>
+    </div>
 
 </BlogLayout>

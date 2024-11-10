@@ -3,9 +3,10 @@ import Main from "../components/Main.astro";
 import Header from "../sections/Header.astro";
 import '../css/main.css'
 import Footer from "../sections/Footer.astro";
+import { ViewTransitions } from "astro:transitions";
 ---
 
-<html lang="en">
+<html lang="en" transition:animate="none">
 
 	<head>
 		<meta charset="utf-8" />
@@ -20,6 +21,7 @@ import Footer from "../sections/Footer.astro";
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 		<link rel="manifest" href="/site.webmanifest">
+		<ViewTransitions />
 	</head>
 	
 	<body class="font-[Poppins,ui-sans-serif,system-ui,sans-serif] bg-sky-50/50">
@@ -37,3 +39,14 @@ import Footer from "../sections/Footer.astro";
     </body>
 
 </html>
+
+<style is:global>
+    @keyframes slide-up {
+      0% {
+        transform: translateY(200px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+</style>

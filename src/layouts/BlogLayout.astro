@@ -3,7 +3,6 @@ import { getDates } from "../../api/date";
 import { getTags } from "../../api/tag";
 import BreadCrumbs from "../components/BreadCrumbs.astro";
 import PageHeading from "../components/PageHeading.astro";
-import TableOfContents from "../components/TableOfContents.astro";
 import Wrapper from "../components/Wrapper.astro";
 import BaseLayout from "./BaseLayout.astro";
 
@@ -25,22 +24,18 @@ const { pageHeading, type } = Astro.props
 
 	<BreadCrumbs />
 	
-    <PageHeading>
-        { pageHeading }
-    </PageHeading>
+	{ type !== 'post' &&
+		<PageHeading>
+			{ pageHeading }
+		</PageHeading>
+	}
 
     <section>
         <Wrapper padding="inline" class="relative grid md:grid-cols-[1fr_250px] gap-12">
 
-			<div>
-
-				{ type === 'post' && <TableOfContents /> }
-
-				<div id="content-slot">
-					<slot />
-				</div>
-
-			</div>
+			<article>
+				<slot />
+			</article>
 
 			<div>
 				<div class="relative border-l-4 border-b-4 border-sky-200/80 p-4">
