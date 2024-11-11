@@ -20,10 +20,7 @@ const { slug, title, date, image, preview } = Astro.props
         </H2>
 
         <p>
-            { preview.slice(0,100) }
-            <span class="hidden md:inline">
-                { preview.slice(100) }
-            </span>
+            { preview }
         </p>
 
         <p class="text-sm">
