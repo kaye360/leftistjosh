@@ -4,6 +4,7 @@ import Header from "../sections/Header.astro";
 import '../css/main.css'
 import Footer from "../sections/Footer.astro";
 import { ViewTransitions } from "astro:transitions";
+import Analytics from "../components/Analytics.astro";
 
 interface Props {
 	title : string,
@@ -62,7 +63,9 @@ const { title, slug, preview } = Astro.props
         </Main>
 
 		<Footer />
-		
+
+		<Analytics />
+
     </body>
 
 </html>
