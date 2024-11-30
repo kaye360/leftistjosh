@@ -20,7 +20,7 @@ export async function getStaticPaths() {
     } )
 }
 
-const { post, image, title, date, tags, updatedAt, slug } = Astro.props
+const { post, image, title, date, tags, updatedAt, slug, preview } = Astro.props
 
 const slideUp : TransitionAnimation = {
     name : 'slide-up'
@@ -41,6 +41,7 @@ const slideUpTransition : TransitionDirectionalAnimations = {
     title={title}
     slug={slug}
     pageHeading={title}
+    preview={preview}
     type="post"
 >
 

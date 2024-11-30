@@ -7,9 +7,10 @@ import { ViewTransitions } from "astro:transitions";
 
 interface Props {
 	title : string,
-	slug? : string;
+	slug? : string,
+	preview? : string
 }
-const { title, slug } = Astro.props
+const { title, slug, preview } = Astro.props
 ---
 
 <html lang="en" transition:animate="none">
@@ -30,13 +31,13 @@ const { title, slug } = Astro.props
 
 		<!-- HTML Meta Tags -->
 		<title>{title}</title>
-		<meta name="description" content="">
+		<meta name="description" content={preview || 'LeftistJosh blog.'}>
 
 		<!-- Open Graph Meta Tags -->
 		<meta property="og:url" content={`https://leftistjosh.netlify.app/blog/${slug}`}>
 		<meta property="og:type" content="website">
 		<meta property="og:title" content={title}>
-		<meta property="og:description" content="">
+		<meta property="og:description" content={preview || 'LeftistJosh blog.'}>
 		<meta property="og:image" content={`https://leftistjosh.netlify.app/open-graph/${slug}.png`}>
 
 		<!-- Twitter Meta Tags -->
@@ -44,7 +45,7 @@ const { title, slug } = Astro.props
 		<meta property="twitter:domain" content="leftistjosh.netlify.app">
 		<meta property="twitter:url" content={`https://leftistjosh.netlify.app/blog/${slug}`}>
 		<meta name="twitter:title" content={title}>
-		<meta name="twitter:description" content="">
+		<meta name="twitter:description" content={preview || 'LeftistJosh blog.'}>
 		<meta name="twitter:image" content={`https://leftistjosh.netlify.app/open-graph/${slug}.png`}>
 
 		<ViewTransitions />

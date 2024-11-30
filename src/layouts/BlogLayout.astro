@@ -14,14 +14,16 @@ interface Props {
 	type : 'post' | 'list' | 'static'
 	title : string
 	slug? : string
+	preview? : string
 }	
 
-const { title, slug, pageHeading, type } = Astro.props
+const { title, slug, pageHeading, type, preview } = Astro.props
 ---
 
 <BaseLayout
     title={title}
 	slug={slug}
+	preview={preview}
 >
 
 	<BreadCrumbs />
