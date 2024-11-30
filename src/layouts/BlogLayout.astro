@@ -12,14 +12,16 @@ const dates = await getDates()
 interface Props {
     pageHeading : string
 	type : 'post' | 'list' | 'static'
-}
+	title : string
+	slug? : string
+}	
 
-const { pageHeading, type } = Astro.props
+const { title, slug, pageHeading, type } = Astro.props
 ---
 
 <BaseLayout
-    title={`Blog Posts`}
-    description=""
+    title={title}
+	slug={slug}
 >
 
 	<BreadCrumbs />
@@ -28,6 +30,10 @@ const { pageHeading, type } = Astro.props
 		<PageHeading>
 			{ pageHeading }
 		</PageHeading>
+	}
+
+	{ slug &&
+		<img src={`/open-graph/${slug}.png`} />
 	}
 
     <section>
